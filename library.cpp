@@ -1,20 +1,12 @@
 #include "library.h"
 #include <iostream>
 #include <unordered_map>
+#include <cstdlib>
 using namespace std;
 
 SparseVector::SparseVector() {
 
 }
-
-//Problem (nie widzi deklaracji w klasie ponizszych 2 funkcji)
-/*void SparseVector::read(int key){
-    cout<<key<<" : "<<this->svector[key]<<endl;
-}
-
-void SparseVector::change(int key, double value){
-
-}*/
 
 //Przypisanie wartosci z danego obiektu na rzecz obiektu ktorego zostal wywolany operator
 void SparseVector::operator=(const SparseVector &v1){
@@ -110,8 +102,43 @@ void SparseVector::operator*=(const SparseVector &v1){
     }
 }
 
-void SparseVector::show(){
+bool SparseVector::operator==(const SparseVector &v1){
+    if(this->svector.size()!=v1.svector.size())return false;
+    for(auto& x: v1.svector){
+        if(this->svector[x.first]!=x.second)return false;
+    }
+    return true;
+}
+
+bool SparseVector::operator!=(const SparseVector &v1){
+    if(this->svector.size()!=v1.svector.size())return true;
+    for(auto& x: v1.svector){
+        if(this->svector[x.first]!=x.second)return true;
+    }
+    return false;
+}
+
+ostream & operator<<(ostream & os,const SparseVector & v1){
+    for(auto& x: v1.svector) os<<x.first<<" : "<<x.second<<endl;
+    return os;
+}
+
+ostream & operator>>(std::ostream & os, SparseVector & v1){
+    
+    return os;
+}
+
+void SparseVector::read(int key){
+        std::cout<<key<<" : "<<this->svector[key]<<std::endl;
+        if(this->svector[key]==0) this->svector.erase(this->svector.find(key));
+}
+
+void SparseVector::change(int key, double value){
+        this->svector[key]=value;
+}
+    
+/*void SparseVector::show(){
     for(auto& x: this->svector){
         std::cout<<x.first<<" : "<<x.second<<std::endl;
     }
-}
+}*/
