@@ -7,12 +7,7 @@
 
 
 class SparseVector{
-  
-  private:
-    
-    //std::unordered_map <int, double> svector;
-
-  public:
+    public:
     
     std::unordered_map <int, double> svector;
     
@@ -30,10 +25,12 @@ class SparseVector{
     bool operator!=(const SparseVector &v1);
 
     friend std::ostream & operator<<(std::ostream & os, const SparseVector & v1);
-    friend std::ostream & operator>>(std::ostream & os, SparseVector & v1);
+    friend std::istream & operator>>(std::istream & is, SparseVector & v1);
 
     void read(int key);
     void change(int key, double value);
+    
+    //Funkcja wyparta przez przeciazenie operatora <<
     //void show();
 
 };
